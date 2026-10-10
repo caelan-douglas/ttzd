@@ -11,8 +11,14 @@ config_version=5
 [application]
 
 config/name="TTZD"
+run/main_scene="uid://b0sfa6ajyvjka"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Context="*uid://cys20ikneabcg"
+OSMParser="*uid://cfci18uljc703"
 
 [display]
 
