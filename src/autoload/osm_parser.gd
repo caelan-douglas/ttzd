@@ -69,6 +69,10 @@ func parse_osm(filename : String) -> Array[Node]:
 				# nd is coordinate reference
 				if node_name == "nd":
 					if _coord_refs.has(attributes["ref"]):
+						# if the last ref was a node ref (ie building)
+						# add this node to its coord refs list
+						if _last_ref is NodeRef:
+							_last_ref.refs.append(_coord_refs[attributes["ref"]])
 						# add orphan tags from associated coord ref to the node
 						_last_ref.tags += _coord_refs[attributes["ref"]].tags
 						# clear orphan tags
@@ -80,7 +84,9 @@ func parse_osm(filename : String) -> Array[Node]:
 	# debug print
 	for ref : NodeRef in _node_refs.values():
 		if ref.type == NodeRef.NodeType.BUILDING:
-			print("Building Ref ---\n", "id ", ref.id, " Tags ", ref.tags)
+			var b : Building = Building.new()
+			b.node_ref = ref
+			get_tree().current_scene.add_child(b)
 	
 	return []
 
