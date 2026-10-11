@@ -15,8 +15,10 @@ class NodeRef extends Ref:
 		ROAD,
 		NATURAL
 	}
+	var name : String
 	var type : NodeType = NodeType.UNUSED
 	var refs : Array[CoordinateRef]
+	var height : float = 4
 
 var _coord_refs : Dictionary[String, CoordinateRef] = {}
 var _node_refs : Dictionary[String, NodeRef] = {}
@@ -105,10 +107,11 @@ func _parse_tags(attributes):
 			attributes["k"] == "natural" ||\
 			attributes["k"] == "building" ||\
 			attributes["k"] == "highway":
-			_last_ref.tags.append(attributes["v"])
-		
-		# define node ref type if available
+			if attributes["v"] != "yes":
+				_last_ref.tags.append(attributes["v"])
+			
 		if _last_ref is NodeRef:
+			# define node ref type if available
 			# building
 			if attributes["k"] == "building":
 				_last_ref.type = NodeRef.NodeType.BUILDING
@@ -118,3 +121,10 @@ func _parse_tags(attributes):
 				_last_ref.type = NodeRef.NodeType.ROAD
 			if attributes["k"] == "natural":
 				_last_ref.type = NodeRef.NodeType.NATURAL
+			
+			# special tags
+			if attributes["k"] == "name":
+				_last_ref.name = attributes["v"]
+			if attributes["k"] == "building:levels":
+				_last_ref.tags.append(str("levels:", attributes["v"]))
+				_last_ref.height = float(attributes["v"]) * 4

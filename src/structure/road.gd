@@ -76,8 +76,9 @@ func _build(width : float = 7) -> void:
 	# add mesh instance
 	var mi : MeshInstance3D = MeshInstance3D.new()
 	mi.mesh = mesh
+	mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	
 	add_child(mi)
 	mi.global_position = global_position
 	
-	_add_debug_label()
+	#_add_debug_label()
