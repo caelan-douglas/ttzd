@@ -74,9 +74,24 @@ func _build(height : float = 10) -> void:
 	
 	add_child(mi)
 	mi.global_position = global_position
+	
+	_add_debug_label()
 
 func _add_triangle(st: SurfaceTool, a: Vector3, b: Vector3, c: Vector3) -> void:
 	# minus global possition for local offset
 	st.add_vertex(a - global_position)
 	st.add_vertex(b - global_position)
 	st.add_vertex(c - global_position)
+
+func _add_debug_label() -> void:
+	var l : Label3D = Label3D.new()
+	l.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	l.no_depth_test = true
+	l.font_size = 24
+	l.pixel_size = 0.00125
+	l.shaded = false
+	l.fixed_size = true
+	l.modulate = Color.AQUAMARINE
+	l.text = str("--- Ref Info ---\n", "id: ", node_ref.id, "\nTags: ", node_ref.tags)
+	add_child(l)
+	l.position = Vector3.ZERO
