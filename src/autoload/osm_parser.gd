@@ -12,7 +12,7 @@ class NodeRef extends Ref:
 	enum NodeType {
 		UNUSED,
 		BUILDING,
-		PATH,
+		ROAD,
 		NATURAL
 	}
 	var type : NodeType = NodeType.UNUSED
@@ -87,6 +87,10 @@ func parse_osm(filename : String) -> Array[Node]:
 			var b : Building = Building.new()
 			b.node_ref = ref
 			get_tree().current_scene.add_child(b)
+		if ref.type == NodeRef.NodeType.ROAD:
+			var r : Road = Road.new()
+			r.node_ref = ref
+			get_tree().current_scene.add_child(r)
 	
 	return []
 
@@ -99,7 +103,8 @@ func _parse_tags(attributes):
 			attributes["k"] == "cuisine" ||\
 			attributes["k"] == "craft" ||\
 			attributes["k"] == "natural" ||\
-			attributes["k"] == "building":
+			attributes["k"] == "building" ||\
+			attributes["k"] == "highway":
 			_last_ref.tags.append(attributes["v"])
 		
 		# define node ref type if available
@@ -110,6 +115,6 @@ func _parse_tags(attributes):
 			# osm tags any type of road as a highway
 			# regardless of what it actually is
 			if attributes["k"] == "highway":
-				_last_ref.type = NodeRef.NodeType.PATH
+				_last_ref.type = NodeRef.NodeType.ROAD
 			if attributes["k"] == "natural":
 				_last_ref.type = NodeRef.NodeType.NATURAL
