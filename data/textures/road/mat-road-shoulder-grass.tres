@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://d02esnxja1vmc"]
+
+[ext_resource type="Texture2D" uid="uid://cuoj3dvu2rg3r" path="res://data/textures/road/road-shoulder-grass.png" id="1_eul3s"]
+
+[resource]
+albedo_texture = ExtResource("1_eul3s")

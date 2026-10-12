@@ -2,16 +2,15 @@
 class_name Structure
 extends Node3D
 
-const UV_TILE_SIZE = 0.25
 var node_ref : OSMParser.NodeRef
 
-func _add_triangle(st: SurfaceTool, a: Vector3, b: Vector3, c: Vector3) -> void:
+func _add_triangle(st: SurfaceTool, a: Vector3, b: Vector3, c: Vector3, uva : Vector2, uvb: Vector2, uvc: Vector2) -> void:
 	# minus global possition for local offset
-	st.set_uv(Vector2(a.x, a.y) * UV_TILE_SIZE)
+	st.set_uv(uva)
 	st.add_vertex(a - global_position)
-	st.set_uv(Vector2(b.x, b.y) * UV_TILE_SIZE)
+	st.set_uv(uvb)
 	st.add_vertex(b - global_position)
-	st.set_uv(Vector2(c.x, c.y) * UV_TILE_SIZE)
+	st.set_uv(uvc)
 	st.add_vertex(c - global_position)
 
 func _add_debug_label() -> void:

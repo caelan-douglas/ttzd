@@ -1,6 +1,8 @@
 class_name Road
 extends Structure
 
+const UV_TILE_SIZE = 0.125
+@onready var mat_shoulder_grass : StandardMaterial3D = preload("res://data/textures/road/mat-road-shoulder-grass.tres")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -31,6 +33,7 @@ func _build(width : float = 7) -> void:
 	st.set_uv(Vector2(0, 0))
 	# sharp normals
 	st.set_smooth_group(-1)
+	st.set_material(mat_shoulder_grass)
 	
 	# create usable point data
 	var points : Array[Vector2] = []
@@ -40,6 +43,8 @@ func _build(width : float = 7) -> void:
 	
 	var left := PackedVector3Array()
 	var right := PackedVector3Array()
+	
+	var distance : float = 0
 	for i in range(points.size()):
 		var tangent : Vector2
 		# roads get extruded left and right
@@ -58,20 +63,20 @@ func _build(width : float = 7) -> void:
 		right.append(Vector3(points[i].x - perpendicular.x, 0.01, points[i].y - perpendicular.y))
 	
 	for i in range(points.size() - 1):
-		_add_triangle(st, left[i], right[i + 1], left[i + 1])
-		_add_triangle(st, left[i], right[i], right[i + 1])
+		# uvs
+		var length := points[i].distance_to(points[i + 1])
+		var u0 := 0.0
+		var u1 := width
+		var v0 := distance
+		var v1 := distance + length
+		_add_triangle(st, left[i], right[i + 1], left[i + 1],\
+							Vector2(u0, v0) * UV_TILE_SIZE, Vector2(u1, v1) * UV_TILE_SIZE, Vector2(u0, v1) * UV_TILE_SIZE)
+		_add_triangle(st, left[i], right[i], right[i + 1],\
+							Vector2(u0, v0) * UV_TILE_SIZE, Vector2(u1, v0) * UV_TILE_SIZE, Vector2(u1, v1) * UV_TILE_SIZE)
+		distance += length
 	
 	st.generate_normals()
 	var mesh : ArrayMesh = st.commit()
-	
-	# add material
-	var mat : StandardMaterial3D = StandardMaterial3D.new()
-	# TODO: find way to better set front faces based on wall winding order
-	# for now just disable cull
-	mat.cull_mode = BaseMaterial3D.CULL_DISABLED
-	mat.albedo_color = Color.BLACK
-	mat.roughness = 0.8
-	mesh.surface_set_material(0, mat)
 	
 	# add mesh instance
 	var mi : MeshInstance3D = MeshInstance3D.new()

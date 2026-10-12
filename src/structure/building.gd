@@ -1,6 +1,9 @@
 class_name Building
 extends Structure
 
+const UV_TILE_SIZE = 0.25
+
+# TODO: ref actual materials for this
 @onready var img_placeholder_roof := preload("res://data/textures/placeholder_roof.png")
 @onready var img_placeholder := preload("res://data/textures/placeholder.png")
 # create texture
@@ -64,9 +67,15 @@ func _build() -> void:
 		var a := points[vertices[i]]
 		var b := points[vertices[i + 1]]
 		var c := points[vertices[i + 2]]
+		var uva : Vector2 = Vector2(a.x, a.y) * UV_TILE_SIZE
+		var uvb : Vector2 = Vector2(b.x, b.y) * UV_TILE_SIZE
+		var uvc : Vector2 = Vector2(c.x, c.y) * UV_TILE_SIZE
 		_add_triangle(st, Vector3(a.x, node_ref.height, a.y),
 							Vector3(b.x, node_ref.height, b.y),
-							Vector3(c.x, node_ref.height, c.y))
+							Vector3(c.x, node_ref.height, c.y),
+							uva,
+							uvb,
+							uvc)
 	
 	var mesh : ArrayMesh = st.commit()
 	
@@ -84,8 +93,14 @@ func _build() -> void:
 		# top
 		var a1 := Vector3(b.x, node_ref.height, b.y)
 		var b1 := Vector3(a.x, node_ref.height, a.y)
-		_add_triangle(st, a0, a1, b1)
-		_add_triangle(st, a0, b1, b0)
+		_add_triangle(st, a0, a1, b1,\
+					Vector2(a0.x, a0.y) * UV_TILE_SIZE,\
+					Vector2(a1.x, a1.y) * UV_TILE_SIZE,\
+					Vector2(b1.x, b1.y) * UV_TILE_SIZE)
+		_add_triangle(st, a0, b1, b0,\
+					Vector2(a0.x, a0.y) * UV_TILE_SIZE,\
+					Vector2(b1.x, b1.y) * UV_TILE_SIZE,\
+					Vector2(b0.x, b0.y) * UV_TILE_SIZE)
 	
 	st.generate_normals()
 	mesh = st.commit(mesh)
