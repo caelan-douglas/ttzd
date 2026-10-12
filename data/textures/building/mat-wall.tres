@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bb7wbmwmgyvmr"]
+
+[ext_resource type="Texture2D" uid="uid://cglr7i4x8evwl" path="res://data/textures/placeholder.png" id="1_bs1iy"]
+
+[resource]
+cull_mode = 2
+albedo_texture = ExtResource("1_bs1iy")
+uv1_scale = Vector3(0.25, 0.25, 0.25)
