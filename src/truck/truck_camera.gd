@@ -6,37 +6,29 @@ extends Camera3D
 @export var min_zoom := 7.0
 @export var max_zoom := 30.0
 
-# Camera rotation
-@export var rotation_sensitivity := 0.005
-@export var min_pitch := -80.0
-@export var max_pitch := -15.0
+# Isometric camera settings
+@export var camera_angle := 45.0
+@export var camera_rotation := 45.0
 
-var camera_offset := Vector3.ZERO
-var zoom_distance := 0.0
-
-var yaw := 0.0
-var pitch := 0.0
-var rotating := false
+var zoom_distance := 20.0
 
 
 func _ready() -> void:
 	if target == null:
 		return
 
-	camera_offset = global_position - target.global_position
-	zoom_distance = camera_offset.length()
-
-	# initial camera rotation from current position
-	yaw = atan2(camera_offset.x, camera_offset.z)
-	pitch = asin(clampf(-camera_offset.y / zoom_distance, -1.0, 1.0))
+	# initial camera position
+	_update_camera_position()
+	look_at(target.global_position, Vector3.UP)
 
 
 func _process(delta: float) -> void:
 	if target == null:
 		return
 
-	# Calculate camera position from rotation
-	var direction := Vector3(sin(yaw) * cos(pitch), -sin(pitch), cos(yaw) * cos(pitch))
+	# Calculate camera position
+	var direction := Vector3(
+		sin(deg_to_rad(camera_rotation)) * cos(deg_to_rad(camera_angle)), sin(deg_to_rad(camera_angle)), cos(deg_to_rad(camera_rotation)) * cos(deg_to_rad(camera_angle)))
 
 	var desired_position := target.global_position + direction * zoom_distance
 	var weight := 1.0 - exp(-follow_speed * delta)
@@ -44,26 +36,20 @@ func _process(delta: float) -> void:
 	# lerp on camera turn
 	global_position = global_position.lerp(desired_position, weight)
 
-	if global_position.distance_squared_to(target.global_position) > 0.0001:
-		look_at(target.global_position, Vector3.UP)
-
+	look_at(target.global_position, Vector3.UP)
 
 func _unhandled_input(event: InputEvent) -> void:
-	# Right-click camera rotation
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_RIGHT:
-			rotating = event.pressed
+	if event is InputEventMouseButton and event.pressed:
+		# Zoom in
+		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+			size = clampf(size - zoom_speed, min_zoom, max_zoom)
 
-	# Rotate while holding right-click
-	if event is InputEventMouseMotion and rotating:
-		yaw -= event.relative.x * rotation_sensitivity
-		pitch -= event.relative.y * rotation_sensitivity
+		# Zoom out
+		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+			size = clampf(size + zoom_speed, min_zoom, max_zoom)
 
-		pitch = clampf(pitch, deg_to_rad(min_pitch), deg_to_rad(max_pitch))
 
-	# Mouse wheel zoom
-	if event.is_action_pressed("zoom_in"):
-		zoom_distance = clampf(zoom_distance - zoom_speed, min_zoom, max_zoom)
+func _update_camera_position() -> void:
+	var direction := Vector3(sin(deg_to_rad(camera_rotation)) * cos(deg_to_rad(camera_angle)),sin(deg_to_rad(camera_angle)),cos(deg_to_rad(camera_rotation)) * cos(deg_to_rad(camera_angle)))
 
-	elif event.is_action_pressed("zoom_out"):
-		zoom_distance = clampf(zoom_distance + zoom_speed, min_zoom, max_zoom)
+	global_position = target.global_position + direction * zoom_distance
