@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://pfy8dplb3uou"]
+
+[ext_resource type="Script" uid="uid://cvcgabsh1serj" path="res://src/truck/truck.gd" id="1_43drx"]
+[ext_resource type="Script" uid="uid://bf4bwgkq2k1de" path="res://src/truck/truck_camera.gd" id="2_wwp01"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_lgr7t"]
+size = Vector3(1.8, 2.2, 6)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tvhvo"]
+albedo_color = Color(0.40674135, 0, 0.0753512, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_p42w8"]
+size = Vector3(2.5058594, 3.086914, 7.495117)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lgr7t"]
+albedo_color = Color(0.08420891, 0.092630796, 0.14167613, 1)
+uv1_scale = Vector3(6, 6, 6)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_24e1u"]
+material = SubResource("StandardMaterial3D_lgr7t")
+
+[node name="Truck_Controller" type="Node" unique_id=338231351]
+
+[node name="Truck" type="CharacterBody3D" parent="." unique_id=421406191]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1825638, 0)
+script = ExtResource("1_43drx")
+
+[node name="TruckMesh" type="MeshInstance3D" parent="Truck" unique_id=1027522164]
+mesh = SubResource("BoxMesh_lgr7t")
+surface_material_override/0 = SubResource("StandardMaterial3D_tvhvo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Truck" unique_id=1794305414]
+shape = SubResource("BoxShape3D_p42w8")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1093363834 node_paths=PackedStringArray("target")]
+transform = Transform3D(1, 0, 0, 0, 0.73845536, 0.6743024, 0, -0.6743024, 0.73845536, 0, 13.599, 10.988)
+script = ExtResource("2_wwp01")
+target = NodePath("../Truck")
+max_zoom = 50.0
+
+[node name="Ground" type="MeshInstance3D" parent="." unique_id=482828577]
+transform = Transform3D(128, 0, 0, 0, 1.008, 0, 0, 0, 128, 0, 0, 0)
+mesh = SubResource("PlaneMesh_24e1u")
