@@ -83,4 +83,4 @@ func _build() -> void:
 	add_child(mi)
 	mi.global_position = global_position
 	
-	_add_debug_label()
+	#_add_debug_label()
