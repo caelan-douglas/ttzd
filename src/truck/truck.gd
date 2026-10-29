@@ -7,7 +7,10 @@ extends CharacterBody3D
 @export var brake_strength := 20.0
 @export var steering_speed := 1.5
 
+@export var trailer_scene: PackedScene
+
 var current_speed := 0.0
+var trailers: Array[Node3D] = []
 
 
 func _physics_process(delta: float) -> void:
@@ -35,3 +38,25 @@ func _physics_process(delta: float) -> void:
 	velocity = forward * current_speed
 
 	move_and_slide()
+
+
+func add_trailer() -> void:
+	if trailer_scene == null:
+		return
+
+	var trailer := trailer_scene.instantiate() as Node3D
+	if trailer == null:
+		return
+
+	get_tree().current_scene.add_child(trailer)
+
+	var follow_target: Node3D = self
+
+	if not trailers.is_empty():
+		follow_target = trailers.back()
+
+	trailer.follow_target = follow_target
+	trailer.global_position = follow_target.global_position + follow_target.global_transform.basis.z * trailer.follow_distance
+	trailer.global_rotation = follow_target.global_rotation
+
+	trailers.append(trailer)

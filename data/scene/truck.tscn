@@ -1,7 +1,10 @@
 [gd_scene format=3 uid="uid://pfy8dplb3uou"]
 
 [ext_resource type="Script" uid="uid://cvcgabsh1serj" path="res://src/truck/truck.gd" id="1_43drx"]
+[ext_resource type="PackedScene" uid="uid://borgf5qd8qydp" path="res://data/scene/trailer.tscn" id="2_ny3mh"]
 [ext_resource type="Script" uid="uid://bf4bwgkq2k1de" path="res://src/truck/truck_camera.gd" id="2_wwp01"]
+[ext_resource type="Script" uid="uid://doni7wq1tc6uc" path="res://src/survivor/survivor_manager.gd" id="3_616iq"]
+[ext_resource type="PackedScene" uid="uid://bdkv8t808ujpq" path="res://data/scene/survivor.tscn" id="4_j6ean"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_lgr7t"]
 size = Vector3(1.8, 2.2, 6)
@@ -24,6 +27,7 @@ material = SubResource("StandardMaterial3D_lgr7t")
 [node name="Truck" type="CharacterBody3D" parent="." unique_id=421406191]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1825638, 0)
 script = ExtResource("1_43drx")
+trailer_scene = ExtResource("2_ny3mh")
 
 [node name="TruckMesh" type="MeshInstance3D" parent="Truck" unique_id=1027522164]
 mesh = SubResource("BoxMesh_lgr7t")
@@ -35,12 +39,45 @@ shape = SubResource("BoxShape3D_p42w8")
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1093363834 node_paths=PackedStringArray("target")]
 transform = Transform3D(1, 0, 0, 0, 0.73845536, 0.6743024, 0, -0.6743024, 0.73845536, 0, 13.599, 10.988)
 projection = 1
+current = true
 size = 35.0
 script = ExtResource("2_wwp01")
 target = NodePath("../Truck")
 follow_speed = 3.5
-max_zoom = 50.0
+max_zoom = 40.0
 
 [node name="Ground" type="MeshInstance3D" parent="." unique_id=482828577]
 transform = Transform3D(128, 0, 0, 0, 1.008, 0, 0, 0, 128, 0, 0, 0)
+visible = false
 mesh = SubResource("PlaneMesh_24e1u")
+
+[node name="Survivors" type="Node3D" parent="." unique_id=1813982899 node_paths=PackedStringArray("truck", "camera", "recruitment_panel", "recruit_button")]
+script = ExtResource("3_616iq")
+truck = NodePath("../Truck")
+camera = NodePath("../Camera3D")
+survivor_scene = ExtResource("4_j6ean")
+recruitment_panel = NodePath("../TempRecruitUI/PanelContainer")
+recruit_button = NodePath("../TempRecruitUI/PanelContainer/VBoxContainer/RecruitButton")
+
+[node name="TempRecruitUI" type="CanvasLayer" parent="." unique_id=452538491]
+
+[node name="PanelContainer" type="PanelContainer" parent="TempRecruitUI" unique_id=1560653755]
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -90.0
+offset_top = -54.0
+offset_right = -26.0
+offset_bottom = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TempRecruitUI/PanelContainer" unique_id=961572161]
+layout_mode = 2
+
+[node name="RecruitButton" type="Button" parent="TempRecruitUI/PanelContainer/VBoxContainer" unique_id=1049789265]
+layout_mode = 2
+text = "Recruit
+"
