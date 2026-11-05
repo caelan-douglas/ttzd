@@ -2,16 +2,20 @@
 
 [ext_resource type="Script" uid="uid://bbvyon43mofbx" path="res://src/debug/debug_camera.gd" id="1_0kksw"]
 [ext_resource type="Script" uid="uid://gxiueve8qu2m" path="res://src/world.gd" id="1_k5ke4"]
-[ext_resource type="PackedScene" uid="uid://pfy8dplb3uou" path="res://data/scene/truck.tscn" id="3_0ooy7"]
 [ext_resource type="Script" uid="uid://doni7wq1tc6uc" path="res://src/character/survivor_manager.gd" id="4_ne3fp"]
 [ext_resource type="PackedScene" uid="uid://bdkv8t808ujpq" path="res://data/scene/survivor.tscn" id="5_am4h8"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_ne3fp"]
+sample_partition_type = 1
+geometry_parsed_geometry_type = 1
+cell_size = 2.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ma2fk"]
 albedo_color = Color(0.21820033, 0.26641914, 0.18508211, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_b84ve"]
 material = SubResource("StandardMaterial3D_ma2fk")
-size = Vector2(65536, 65536)
+size = Vector2(4096, 4096)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_b84ve"]
 size = Vector3(4096, 32, 4096)
@@ -34,6 +38,18 @@ fog_density = 0.0005
 [node name="World" type="Node" unique_id=639369188]
 script = ExtResource("1_k5ke4")
 
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1616525615]
+navigation_mesh = SubResource("NavigationMesh_ne3fp")
+
+[node name="Ground" type="MeshInstance3D" parent="NavigationRegion3D" unique_id=1518813160]
+mesh = SubResource("PlaneMesh_b84ve")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/Ground" unique_id=2145873970]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Ground/StaticBody3D" unique_id=497719863]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -16, 0)
+shape = SubResource("BoxShape3D_b84ve")
+
 [node name="DebugCam" type="Camera3D" parent="." unique_id=1904989370]
 transform = Transform3D(1, 0, 0, 0, 0.81915206, 0.57357645, 0, -0.57357645, 0.81915206, 85.35004, 300, 330.21786)
 projection = 1
@@ -50,26 +66,14 @@ light_energy = 1.2
 shadow_enabled = true
 directional_shadow_max_distance = 1024.0
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1518813160]
-mesh = SubResource("PlaneMesh_b84ve")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D" unique_id=2145873970]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D" unique_id=497719863]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -16, 0)
-shape = SubResource("BoxShape3D_b84ve")
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1717706853]
 environment = SubResource("Environment_b84ve")
-
-[node name="Truck_Controller" parent="." unique_id=338231351 instance=ExtResource("3_0ooy7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9708416, 0)
 
 [node name="Survivors" type="Node3D" parent="." unique_id=1163675692 node_paths=PackedStringArray("truck", "camera", "recruitment_panel", "recruit_button")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.1825638, 0)
 script = ExtResource("4_ne3fp")
-truck = NodePath("../Truck_Controller")
-camera = NodePath("../Truck_Controller/Camera3D")
+truck = NodePath("")
+camera = NodePath("")
 survivor_scene = ExtResource("5_am4h8")
 recruitment_panel = NodePath("../TempRecruitUI/PanelContainer")
 recruit_button = NodePath("../TempRecruitUI/PanelContainer/VBoxContainer/RecruitButton")
@@ -96,5 +100,3 @@ layout_mode = 2
 layout_mode = 2
 text = "Recruit
 "
-
-[editable path="Truck_Controller"]

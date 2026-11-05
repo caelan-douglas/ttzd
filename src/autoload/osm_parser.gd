@@ -80,16 +80,21 @@ func parse_osm(filename : String) -> Array[Node]:
 	var end_time : float = Time.get_ticks_msec()
 	print("OSM node ref parse took ", (end_time - start_time)/1000, " seconds")
 	
+	# TODO: a little hardcoded
+	var nav_region : NavigationRegion3D = get_tree().current_scene.get_node("NavigationRegion3D")
 	# debug print
 	for ref : NodeRef in _node_refs.values():
 		if ref.type == NodeRef.NodeType.BUILDING:
 			var b : Building = Building.new()
 			b.node_ref = ref
-			get_tree().current_scene.add_child(b)
+			# add buildings to navmesh
+			nav_region.add_child(b)
 		if ref.type == NodeRef.NodeType.ROAD:
 			var r : Road = Road.new()
 			r.node_ref = ref
 			get_tree().current_scene.add_child(r)
+	
+	nav_region.bake_navigation_mesh(true)
 	
 	return []
 

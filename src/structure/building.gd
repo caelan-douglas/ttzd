@@ -80,6 +80,8 @@ func _build() -> void:
 	var mi : MeshInstance3D = MeshInstance3D.new()
 	mi.mesh = mesh
 	
+	mi.create_trimesh_collision()
+	
 	add_child(mi)
 	mi.global_position = global_position
 	
