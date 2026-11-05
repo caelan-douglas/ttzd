@@ -77,9 +77,11 @@ directional_shadow_max_distance = 1024.0
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1717706853]
 environment = SubResource("Environment_b84ve")
 
-[node name="Survivors" type="Node3D" parent="." unique_id=1163675692 node_paths=PackedStringArray("recruitment_panel", "recruit_button")]
+[node name="Survivors" type="Node3D" parent="." unique_id=1163675692 node_paths=PackedStringArray("truck", "camera", "recruitment_panel", "recruit_button")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.1825638, 0)
 script = ExtResource("4_ne3fp")
+truck = NodePath("../Truck")
+camera = NodePath("../Camera3D")
 survivor_scene = ExtResource("5_am4h8")
 recruitment_panel = NodePath("../TempRecruitUI/PanelContainer")
 recruit_button = NodePath("../TempRecruitUI/PanelContainer/VBoxContainer/RecruitButton")
