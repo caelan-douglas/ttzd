@@ -8,7 +8,7 @@ extends Node3D
 @export var survivor_count := 12
 @export var spawn_radius := 80.0
 
-var selected_survivor: Area3D
+var selected_survivor: Survivor
 
 
 func _ready() -> void:
@@ -31,7 +31,7 @@ func spawn_survivors() -> void:
 		return
 
 	for i in range(survivor_count):
-		var survivor := survivor_scene.instantiate() as Area3D
+		var survivor := survivor_scene.instantiate() as Survivor
 		if survivor == null:
 			continue
 
@@ -76,8 +76,8 @@ func select_survivor(mouse_position: Vector2) -> void:
 
 	var query := PhysicsRayQueryParameters3D.create(origin, end)
 	query.collision_mask = 2
-	query.collide_with_areas = true
-	query.collide_with_bodies = false
+	query.collide_with_areas = false
+	query.collide_with_bodies = true
 
 	var result := get_world_3d().direct_space_state.intersect_ray(query)
 
@@ -87,9 +87,9 @@ func select_survivor(mouse_position: Vector2) -> void:
 	if result.is_empty():
 		return
 
-	var survivor := result["collider"] as Area3D
+	var survivor := result["collider"] as PhysicsBody3D
 
-	if survivor == null:
+	if survivor == null || survivor is not Survivor:
 		return
 
 	if survivor.has_method("can_recruit") and survivor.call("can_recruit"):

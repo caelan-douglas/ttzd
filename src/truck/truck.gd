@@ -12,6 +12,8 @@ extends CharacterBody3D
 var current_speed := 0.0
 var trailers: Array[Node3D] = []
 
+func _init() -> void:
+	Context.player = self
 
 func _physics_process(delta: float) -> void:
 	var throttle := Input.get_axis("reverse", "accelerate")

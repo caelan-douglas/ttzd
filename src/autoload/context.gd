@@ -1,5 +1,7 @@
 extends Node
 
+var player : CharacterBody3D
+
 # to be used for globals (game state)
 const DIST_METRES = 111133
 var world_origin_lat : float = 45.38552

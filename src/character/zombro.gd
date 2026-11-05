@@ -1,3 +1,4 @@
+class_name Zombro
 extends Character
 
 

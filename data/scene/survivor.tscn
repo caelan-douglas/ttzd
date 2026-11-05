@@ -12,9 +12,9 @@ material = SubResource("StandardMaterial3D_kk586")
 radius = 0.21777344
 height = 0.82421875
 
-[node name="Survivor" type="Area3D" unique_id=1875945592]
+[node name="Survivor" type="CharacterBody3D" unique_id=1651105360]
 collision_layer = 2
-collision_mask = 0
+collision_mask = 3
 script = ExtResource("1_kk586")
 recruitment_radius = 15.0
 
