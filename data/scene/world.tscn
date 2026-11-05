@@ -2,10 +2,12 @@
 
 [ext_resource type="Script" uid="uid://bbvyon43mofbx" path="res://src/debug/debug_camera.gd" id="1_0kksw"]
 [ext_resource type="Script" uid="uid://gxiueve8qu2m" path="res://src/world.gd" id="1_k5ke4"]
+[ext_resource type="Texture2D" uid="uid://c0ca8dtnbg4kq" path="res://data/textures/placeholder_grass.png" id="2_5tdrv"]
 [ext_resource type="PackedScene" uid="uid://pfy8dplb3uou" path="res://data/scene/truck.tscn" id="3_0ooy7"]
 [ext_resource type="Script" uid="uid://doni7wq1tc6uc" path="res://src/character/survivor_manager.gd" id="4_ne3fp"]
 [ext_resource type="PackedScene" uid="uid://bdkv8t808ujpq" path="res://data/scene/survivor.tscn" id="5_am4h8"]
 [ext_resource type="PackedScene" uid="uid://bgfgqno5h5ono" path="res://data/scene/zombro.tscn" id="6_am4h8"]
+[ext_resource type="Script" uid="uid://bf4bwgkq2k1de" path="res://src/truck/truck_camera.gd" id="8_ku3kj"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_ne3fp"]
 sample_partition_type = 1
@@ -13,7 +15,8 @@ geometry_parsed_geometry_type = 1
 cell_size = 2.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ma2fk"]
-albedo_color = Color(0.21820033, 0.26641914, 0.18508211, 1)
+albedo_texture = ExtResource("2_5tdrv")
+uv1_scale = Vector3(1024, 1024, 1024)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_b84ve"]
 material = SubResource("StandardMaterial3D_ma2fk")
@@ -35,7 +38,11 @@ tonemap_exposure = 1.2
 tonemap_agx_contrast = 1.6
 ssao_enabled = true
 fog_enabled = true
-fog_density = 0.0005
+fog_density = 0.004
+fog_aerial_perspective = 0.5
+volumetric_fog_density = 0.03
+volumetric_fog_anisotropy = 0.76
+volumetric_fog_ambient_inject = 1.0
 
 [node name="World" type="Node" unique_id=639369188]
 script = ExtResource("1_k5ke4")
@@ -55,7 +62,6 @@ shape = SubResource("BoxShape3D_b84ve")
 [node name="DebugCam" type="Camera3D" parent="." unique_id=1904989370]
 transform = Transform3D(1, 0, 0, 0, 0.81915206, 0.57357645, 0, -0.57357645, 0.81915206, 85.35004, 300, 330.21786)
 projection = 1
-current = true
 fov = 90.0
 size = 300.0
 far = 4096.0
@@ -64,7 +70,7 @@ script = ExtResource("1_0kksw")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1974750957]
 transform = Transform3D(0.4498931, 0.13585456, -0.8826888, 0.3076202, 0.9043069, 0.2959711, 0.8384307, -0.4046883, 0.36504984, 0, 10, 0)
 light_color = Color(0.90124696, 0.77972287, 0.7378234, 1)
-light_energy = 1.2
+light_energy = 2.0
 shadow_enabled = true
 directional_shadow_max_distance = 1024.0
 
@@ -127,3 +133,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2419486, 4.7683716e-07, -27
 
 [node name="Zombro8" parent="." unique_id=918139946 instance=ExtResource("6_am4h8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.929441, 4.7683716e-07, -24.488262)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1481159325 node_paths=PackedStringArray("target")]
+transform = Transform3D(1, 0, 0, 0, 0.73845536, 0.6743024, 0, -0.6743024, 0.73845536, 0, 40, 10.988)
+projection = 1
+current = true
+size = 35.0
+script = ExtResource("8_ku3kj")
+target = NodePath("../Truck")
+follow_speed = 3.5
+max_zoom = 40.0

@@ -7,10 +7,10 @@ extends Camera3D
 @export var max_zoom := 30.0
 
 # Isometric camera settings
-@export var camera_angle := 45.0
+@export var camera_angle := 35.0
 @export var camera_rotation := 45.0
 
-var zoom_distance := 20.0
+var zoom_distance := 100.0
 
 
 func _ready() -> void:

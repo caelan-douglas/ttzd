@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://cvcgabsh1serj" path="res://src/truck/truck.gd" id="1_43drx"]
 [ext_resource type="PackedScene" uid="uid://borgf5qd8qydp" path="res://data/scene/trailer.tscn" id="2_ny3mh"]
-[ext_resource type="Script" uid="uid://bf4bwgkq2k1de" path="res://src/truck/truck_camera.gd" id="2_wwp01"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_lgr7t"]
 size = Vector3(1.8, 2.2, 6)
@@ -23,13 +22,3 @@ surface_material_override/0 = SubResource("StandardMaterial3D_tvhvo")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1794305414]
 shape = SubResource("BoxShape3D_p42w8")
-
-[node name="Camera3D" type="Camera3D" parent="." unique_id=1093363834 node_paths=PackedStringArray("target")]
-transform = Transform3D(1, 0, 0, 0, 0.73845536, 0.6743024, 0, -0.6743024, 0.73845536, 0, 11.416436, 10.988)
-projection = 1
-current = true
-size = 35.0
-script = ExtResource("2_wwp01")
-target = NodePath("..")
-follow_speed = 3.5
-max_zoom = 40.0

@@ -2,7 +2,7 @@ class_name Road
 extends Structure
 
 const UV_TILE_SIZE = 0.125
-@onready var mat_shoulder_grass : StandardMaterial3D = preload("res://data/textures/road/mat-road-shoulder-grass.tres")
+@onready var mat_shoulder_grass : StandardMaterial3D = preload("res://data/textures/road/mat-road_two_lane.tres")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

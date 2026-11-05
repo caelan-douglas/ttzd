@@ -1,6 +1,6 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://bb7wbmwmgyvmr"]
 
-[ext_resource type="Texture2D" uid="uid://cglr7i4x8evwl" path="res://data/textures/placeholder.png" id="1_bs1iy"]
+[ext_resource type="Texture2D" uid="uid://febppd5jyrbg" path="res://data/textures/building/building_brick_window.png" id="1_bs1iy"]
 
 [resource]
 cull_mode = 2
