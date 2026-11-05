@@ -24,9 +24,6 @@ var _coord_refs : Dictionary[String, CoordinateRef] = {}
 var _node_refs : Dictionary[String, NodeRef] = {}
 var _last_ref : Ref
 
-func _ready() -> void:
-	parse_osm("carleton.xml")
-
 # TODO: Handle relations, area paths, and multipolygons.
 func parse_osm(filename : String) -> Array[Node]:
 	var nodes : Array[Node] = []

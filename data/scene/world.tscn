@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://b0sfa6ajyvjka"]
 
 [ext_resource type="Script" uid="uid://bbvyon43mofbx" path="res://src/debug/debug_camera.gd" id="1_0kksw"]
+[ext_resource type="Script" uid="uid://gxiueve8qu2m" path="res://src/world.gd" id="1_k5ke4"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ma2fk"]
 albedo_color = Color(0.21820033, 0.26641914, 0.18508211, 1)
@@ -25,6 +26,7 @@ fog_enabled = true
 fog_density = 0.0005
 
 [node name="World" type="Node" unique_id=639369188]
+script = ExtResource("1_k5ke4")
 
 [node name="DebugCam" type="Camera3D" parent="." unique_id=1904989370]
 transform = Transform3D(1, 0, 0, 0, 0.81915206, 0.57357645, 0, -0.57357645, 0.81915206, 85.35004, 300, 330.21786)
