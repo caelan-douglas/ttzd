@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bgfgqno5h5ono"]
 
-[ext_resource type="Script" uid="uid://clv55m1pjon0v" path="res://src/character/survivor.gd" id="1_07vdg"]
+[ext_resource type="Script" uid="uid://b6rdef6c3nbna" path="res://src/character/zombro.gd" id="1_07vdg"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kk586"]
 albedo_color = Color(0.21568628, 0.45882353, 0, 1)
@@ -13,10 +13,7 @@ radius = 0.21777344
 height = 0.82421875
 
 [node name="Zombro" type="CharacterBody3D" unique_id=1403742262]
-collision_layer = 2
-collision_mask = 0
 script = ExtResource("1_07vdg")
-recruitment_radius = 15.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1002831789]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0.41190356, 0)
@@ -25,3 +22,8 @@ mesh = SubResource("CapsuleMesh_lgr7t")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=764505912]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.41190356, 0)
 shape = SubResource("CapsuleShape3D_24e1u")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1652391204]
+path_desired_distance = 3.0
+target_desired_distance = 2.0
+path_max_distance = 30.51

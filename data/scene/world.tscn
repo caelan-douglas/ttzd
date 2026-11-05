@@ -2,8 +2,10 @@
 
 [ext_resource type="Script" uid="uid://bbvyon43mofbx" path="res://src/debug/debug_camera.gd" id="1_0kksw"]
 [ext_resource type="Script" uid="uid://gxiueve8qu2m" path="res://src/world.gd" id="1_k5ke4"]
+[ext_resource type="PackedScene" uid="uid://pfy8dplb3uou" path="res://data/scene/truck.tscn" id="3_0ooy7"]
 [ext_resource type="Script" uid="uid://doni7wq1tc6uc" path="res://src/character/survivor_manager.gd" id="4_ne3fp"]
 [ext_resource type="PackedScene" uid="uid://bdkv8t808ujpq" path="res://data/scene/survivor.tscn" id="5_am4h8"]
+[ext_resource type="PackedScene" uid="uid://bgfgqno5h5ono" path="res://data/scene/zombro.tscn" id="6_am4h8"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_ne3fp"]
 sample_partition_type = 1
@@ -69,11 +71,9 @@ directional_shadow_max_distance = 1024.0
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1717706853]
 environment = SubResource("Environment_b84ve")
 
-[node name="Survivors" type="Node3D" parent="." unique_id=1163675692 node_paths=PackedStringArray("truck", "camera", "recruitment_panel", "recruit_button")]
+[node name="Survivors" type="Node3D" parent="." unique_id=1163675692 node_paths=PackedStringArray("recruitment_panel", "recruit_button")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.1825638, 0)
 script = ExtResource("4_ne3fp")
-truck = NodePath("")
-camera = NodePath("")
 survivor_scene = ExtResource("5_am4h8")
 recruitment_panel = NodePath("../TempRecruitUI/PanelContainer")
 recruit_button = NodePath("../TempRecruitUI/PanelContainer/VBoxContainer/RecruitButton")
@@ -100,3 +100,30 @@ layout_mode = 2
 layout_mode = 2
 text = "Recruit
 "
+
+[node name="Zombro" parent="." unique_id=1403742262 instance=ExtResource("6_am4h8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.380672, -3.8146973e-06, 19.565071)
+
+[node name="Truck" parent="." unique_id=421406191 instance=ExtResource("3_0ooy7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.056568146, 1.1, -25.731789)
+
+[node name="Zombro2" parent="." unique_id=661915036 instance=ExtResource("6_am4h8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.32831, 0, -12.778809)
+
+[node name="Zombro3" parent="." unique_id=1111124321 instance=ExtResource("6_am4h8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -57.99294, 0, -67.41833)
+
+[node name="Zombro4" parent="." unique_id=569514340 instance=ExtResource("6_am4h8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.49939, 0, 16.520681)
+
+[node name="Zombro5" parent="." unique_id=920426325 instance=ExtResource("6_am4h8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -56.793003, 0, -1.7525024)
+
+[node name="Zombro6" parent="." unique_id=721979775 instance=ExtResource("6_am4h8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.80371, 0, -51.792023)
+
+[node name="Zombro7" parent="." unique_id=1342891554 instance=ExtResource("6_am4h8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2419486, 4.7683716e-07, -27.332382)
+
+[node name="Zombro8" parent="." unique_id=918139946 instance=ExtResource("6_am4h8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.929441, 4.7683716e-07, -24.488262)
