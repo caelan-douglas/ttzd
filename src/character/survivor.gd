@@ -7,6 +7,7 @@ var truck: Node3D
 
 func can_recruit() -> bool:
 	if truck == null:
+		print("fart")
 		return false
 
 	var survivor_position := Vector2(global_position.x, global_position.z)

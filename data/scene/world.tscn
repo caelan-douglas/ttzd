@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bbvyon43mofbx" path="res://src/debug/debug_camera.gd" id="1_0kksw"]
 [ext_resource type="Script" uid="uid://gxiueve8qu2m" path="res://src/world.gd" id="1_k5ke4"]
+[ext_resource type="PackedScene" uid="uid://pfy8dplb3uou" path="res://data/scene/truck.tscn" id="3_0ooy7"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ma2fk"]
 albedo_color = Color(0.21820033, 0.26641914, 0.18508211, 1)
@@ -49,3 +50,5 @@ mesh = SubResource("PlaneMesh_b84ve")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1717706853]
 environment = SubResource("Environment_b84ve")
+
+[node name="Truck_Controller" parent="." unique_id=338231351 instance=ExtResource("3_0ooy7")]

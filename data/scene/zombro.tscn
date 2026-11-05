@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://bgfgqno5h5ono"]
+
+[ext_resource type="Script" uid="uid://clv55m1pjon0v" path="res://src/character/survivor.gd" id="1_07vdg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kk586"]
+albedo_color = Color(0.21568628, 0.45882353, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_lgr7t"]
+material = SubResource("StandardMaterial3D_kk586")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_24e1u"]
+radius = 0.21777344
+height = 0.82421875
+
+[node name="Zombro" type="CharacterBody3D" unique_id=1403742262]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_07vdg")
+recruitment_radius = 15.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1002831789]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0.41190356, 0)
+mesh = SubResource("CapsuleMesh_lgr7t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=764505912]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.41190356, 0)
+shape = SubResource("CapsuleShape3D_24e1u")

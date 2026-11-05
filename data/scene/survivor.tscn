@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bdkv8t808ujpq"]
 
-[ext_resource type="Script" uid="uid://clv55m1pjon0v" path="res://src/survivor/survivor.gd" id="1_kk586"]
+[ext_resource type="Script" uid="uid://clv55m1pjon0v" path="res://src/character/survivor.gd" id="1_kk586"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kk586"]
 albedo_color = Color(0.21761578, 0.4598421, 1, 1)
