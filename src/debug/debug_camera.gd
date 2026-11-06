@@ -1,6 +1,6 @@
 extends Camera3D
 
-const SPEED = 1200
+const SPEED = 600
 const DAMP = 0.98
 
 var vel : Vector2
